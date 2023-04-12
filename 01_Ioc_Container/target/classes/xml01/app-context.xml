@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<!--
+		안녕. 난 Spring Bean Configuration File이야.
+		난 IoC Container(스프링 컨테이너)에 Bean을 만들어 두는 파일이지.
+		내가 <bean> 태그를 사용하면 Bean이 만들어져서 보관돼.
+	-->
+	
+	<!-- 
+		<bean> 태그와 <property> 태그는 default constructor와 setter를 이용해서 Bean을 만듭니다.
+		(따라서 미리 default constructor와 setter를 만들어 둬야 합니다.)
+		<property name="stuNo"> 태그는 setStuNo() 메소드를 이용합니다.
+		<property name="name"> 태그는 setName() 메소드를 이용합니다.
+		<property name="calculator"> 태그는 setCalculator() 메소드를 이용합니다.
+	-->
+	
+	<!--
+		아래 Java 코드는 개발자가 직접 Bean을 만드는 코드입니다. (스프링 스타일이 아닙니다.)
+		Calculator calc = new Calculator();
+		Student student = new Student();
+		student.setStuNo("10101");
+		student.setName("강나래");
+		student.setCalculator(calc);
+	-->
+	
+	<!-- 위 Java 코드와 동일한 Bean을 만드는 태그입니다. (스프링에서 사용하는 방식입니다.) -->
+	<bean id="calc" class="com.gdu.app01.xml01.Calculator" />
+	<bean id="student" class="com.gdu.app01.xml01.Student">
+		<property name="stuNo" value="10101" />
+		<property name="name" value="강나래" />
+		<property name="calculator" ref="calc" />
+	</bean>
+
+</beans>
