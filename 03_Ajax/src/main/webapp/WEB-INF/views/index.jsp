@@ -12,5 +12,7 @@
 <body>
 	<div><a href="${contextPath}/first.do">이동1</a></div>
 	<div><a href="${contextPath}/second.do">이동2</a></div>
+	<div><a href="${contextPath}/third.do">이동3</a></div>
+	<div><a href="${contextPath}/fourth.do">이동4</a></div>
 </body>
 </html>
