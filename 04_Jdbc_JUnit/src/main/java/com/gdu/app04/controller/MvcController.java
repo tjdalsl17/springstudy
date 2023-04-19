@@ -8,7 +8,6 @@ public class MvcController {
 	
 	@GetMapping("/")
 	public String welcome() {
-		
 		return "index";
 	}
 	
