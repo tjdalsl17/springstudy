@@ -36,28 +36,28 @@ public class DBConfig {
 	}
 	// HikariDataSource Bean
 	@Bean(destroyMethod="close")
-	public HikariDataSource datasource() {
+	public HikariDataSource hikariDataSource() {
 		return new HikariDataSource(hikariConfig());
 	}
 	
 	// SqlSessionFactory Bean
 	@Bean
-	public SqlSessionFactory factory() throws Exception {
+	public SqlSessionFactory sqlSessionFactory() throws Exception {
 		SqlSessionFactoryBean bean = new SqlSessionFactoryBean();
-		bean.setDataSource(datasource());
+		bean.setDataSource(hikariDataSource());
 		bean.setConfigLocation(new PathMatchingResourcePatternResolver().getResource(env.getProperty("mybatis.config-location")));
 		bean.setMapperLocations(new PathMatchingResourcePatternResolver().getResources(env.getProperty("mybatis.mapper-locations")));
 		return bean.getObject();
 	}
 	// SqlSessionTemplate Bean (기존의 SqlSession)
 	@Bean
-	public SqlSessionTemplate template() throws Exception {
-		return new SqlSessionTemplate(factory());
+	public SqlSessionTemplate sqlSessionTemplate() throws Exception {
+		return new SqlSessionTemplate(sqlSessionFactory());
 	}
 	
 	// TransactionManager Bean
 	@Bean
 	public TransactionManager transactionManager() {
-		return new DataSourceTransactionManager(datasource());
+		return new DataSourceTransactionManager(hikariDataSource());
 	}
 }

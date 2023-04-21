@@ -20,7 +20,7 @@
 	}
 	function fnRemove(){
 		if(confirm('삭제할까요?')){
-			$('#frm_remove').submit();
+			location.href = '${contextPath}/board/remove.do?board_no=${b.board_no}';
 		}
 	}
 	function fnList(){
@@ -49,15 +49,12 @@
 <body>
 
 	<div id="detail_screen">
-		<h1>${b.boardNo}번 게시글 상세보기</h1>
+		<h1>${b.board_no}번 게시글 상세보기</h1>
 		<div>제목 : ${b.title}</div>
 		<div>작성자 : ${b.writer}</div>
-		<div>작성일: ${b.createdAt}</div>
-		<div>수정일: ${b.modifiedAt}</div>
+		<div>작성일: ${b.created_at}</div>
+		<div>수정일: ${b.modified_at}</div>
 		<div>${b.content}</div>
-		<form id="frm_remove" action="${contextPath}/board/remove.do" method="post">
-			<input type="hidden" name="boardNo" value="${b.boardNo}">
-		</form>
 		<div>
 			<input type="button" value="편집" onclick="fnEdit()">
 			<input type="button" value="삭제" onclick="fnRemove()">
@@ -78,7 +75,7 @@
 				<textarea id="content" name="content">${b.content}</textarea>	<!-- summernote 편집기로 바뀌는 textarea -->
 			</div>
 			<div>
-				<input type="hidden" name="board_no" value="${b.boardNo}">
+				<input type="hidden" name="board_no" value="${b.board_no}">
 				<button>수정완료</button>
 				<input type="button" value="목록" onclick="fnList()">
 			</div>
