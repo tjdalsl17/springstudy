@@ -12,5 +12,5 @@ public interface BoardService {
 	public int addBoard(HttpServletRequest request);	
 	public int modifyBoard(HttpServletRequest request);
 	public int removeBoard(HttpServletRequest request); // // jsp 파라미터값-> controller는 HttpServletRequest로 request는 DAO에서 int값으로 변환
-
+	public void testTx();
 }

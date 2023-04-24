@@ -16,15 +16,18 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 
-@PropertySource(value={"classpath:application.properties"})	// application.properties 파일의 속성을 읽어 오자!
-@EnableTransactionManagement 	// 트랜잭션 처리를 허용한다.
+@PropertySource(value={"classpath:application.properties"})  // application.properties 파일의 속성을 읽어 오자!
+@EnableTransactionManagement(proxyTargetClass=true)          // 트랜잭션 처리를 허용한다.
+// Auto Proxy(인터페이스를 찾아서 바인딩 하는 것 : @Autowired BoardService boardService)
+// @Transactional은 Auto Proxy이기 때문에 인터페이스가 아닌 자바 클래스를 이용하려면(@Autowired BoardServiceImpl boardService)
+// 클래스로 바인딩을 할 수 있도록 proxyTargetClass를 true로 해 준다. 
 @Configuration
 public class DBConfig {
-	
+
 	@Autowired
 	private Environment env;
 	
-	// HikariConfig Bean
+	// HikaryConfig Bean
 	@Bean
 	public HikariConfig hikariConfig() {
 		HikariConfig hikariConfig = new HikariConfig();
@@ -34,6 +37,7 @@ public class DBConfig {
 		hikariConfig.setPassword(env.getProperty("spring.datasource.hikari.password"));
 		return hikariConfig;
 	}
+	
 	// HikariDataSource Bean
 	@Bean(destroyMethod="close")
 	public HikariDataSource hikariDataSource() {
@@ -49,6 +53,7 @@ public class DBConfig {
 		bean.setMapperLocations(new PathMatchingResourcePatternResolver().getResources(env.getProperty("mybatis.mapper-locations")));
 		return bean.getObject();
 	}
+	
 	// SqlSessionTemplate Bean (기존의 SqlSession)
 	@Bean
 	public SqlSessionTemplate sqlSessionTemplate() throws Exception {
@@ -60,4 +65,5 @@ public class DBConfig {
 	public TransactionManager transactionManager() {
 		return new DataSourceTransactionManager(hikariDataSource());
 	}
+	
 }
