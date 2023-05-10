@@ -17,7 +17,7 @@ public class MyFileUtil {
 	public String getPath() {
 		LocalDate now = LocalDate.now();
 		// 루트/storage/2023/05/08
-		return "/storage" +sep + now.getYear() + sep + String.format("%02d", now.getMonthValue()) + sep + String.format("%02d", now.getDayOfMonth());
+		return "/storage" + sep + now.getYear() + sep + String.format("%02d", now.getMonthValue()) + sep + String.format("%02d", now.getDayOfMonth());
 	}
 	
 	// String filesystemName 만들기
@@ -43,5 +43,23 @@ public class MyFileUtil {
 		return UUID.randomUUID().toString().replace("-", "") + "." + extName;
 		
 	}
+
+	// String tempPath 만들기
+	public String getTempPath() {
+		return "/storage" + sep + "temp";
+	}
+	
+	// String tempfileName 만들기 (zip 파일)
+	public String getTempfileName() {
+		return UUID.randomUUID().toString().replace("-", "") + ".zip";
+	}
+	
+	// String yesterdayPath 만들기
+	public String getYesterdayPath() {
+		LocalDate date = LocalDate.now();
+		date.minusDays(1);	// 1일 전
+		return "/storage" + sep + date.getYear() + sep + String.format("%02d", date.getMonthValue()) + sep + String.format("%02d", date.getDayOfMonth());
+	}
+	
 	
 }

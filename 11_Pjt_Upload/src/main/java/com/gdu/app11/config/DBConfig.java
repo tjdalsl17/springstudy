@@ -53,7 +53,7 @@ public class DBConfig {
 		return bean.getObject();
 	}
 	
-	// SqlSessionTemplate Bean (기존의 SqlSession)
+	// SqlSessionTemplate Bean
 	@Bean
 	public SqlSessionTemplate sqlSessionTemplate() throws Exception {
 		return new SqlSessionTemplate(sqlSessionFactory());
@@ -64,4 +64,5 @@ public class DBConfig {
 	public TransactionManager transactionManager() {
 		return new DataSourceTransactionManager(hikariDataSource());
 	}
+	
 }
