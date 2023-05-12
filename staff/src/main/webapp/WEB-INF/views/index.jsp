@@ -16,6 +16,7 @@
 		fnList();	
 	})
 	
+	
 	function fnList(){
 		$.ajax({
 			type: 'get',
@@ -54,6 +55,41 @@
 			}
 		})
 	}
+	
+	function fnAddStaff(){
+		
+	$('#btn_add').click(function() {
+		  var regSNO = $('#sno').val();
+		  var regSNO = /^\d{5}$/;
+		  if (!regex.test(value)) {
+		    alert('사원번호는 5자리 숫자로 입력해주세요.');
+		    return ;
+		  }
+		});
+	}
+	
+	
+	
+	function fnSearch(){
+		$.ajax({
+			type: 'get',
+			url: '${contextPath}/search.do',
+			data: $('#frm_search').serialize(),
+			dataType: 'text',
+			success: function(resData){
+				alert(resData);
+				fnList();
+				$('#sno').val('');
+				$('#name').val('');
+				$('#dept').val('');
+			},
+			error: function(jqXHR){
+				alert(jqXHR.responseText);
+			}
+			
+		})
+	}
+	
 	
 </script>
 </head>

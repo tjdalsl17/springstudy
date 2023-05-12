@@ -11,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
 
 import com.gdu.staff.domain.StaffDTO;
 import com.gdu.staff.mapper.StaffMapper;
@@ -62,5 +63,22 @@ public class StaffServiceImpl implements StaffService {
 			return new ResponseEntity<String>("사원 등록이 실패했습니다.", HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
+	
+	@Override
+	public String searchStaff(HttpServletRequest request, Model model) {
+		try {
+			  String sno = request.getParameter("sno");
+			  String name = request.getParameter("name");
+			  String dept = request.getParameter("dept");
+			  StaffDTO staffDTO = new StaffDTO();
+			  staffDTO.setSno(sno);
+			  staffDTO.setName(name);
+			  staffDTO.setDept(dept);
+			  staffMapper.searchStaff(staffDTO);
+			  return "사원 등록이 성공했습니다.";
+		  } catch(Exception e) {
+			  return "조회된 사원 정보가 없습니다.";
+	}
 
+	}
 }
